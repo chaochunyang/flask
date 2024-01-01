@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETF 報酬率比較圖</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script> -->
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='./css/styles.css')}}"> -->
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script src="../static/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../static/js/chartjs/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <h1>PYTHON FLASK with CHARTJS</h1>
+    <form method="POST">
+        <p>
+            <strong><label for="stock1">股票1</label></strong>
+        </p>
+        <p>
+            <input type="text" name="stock1" placeholder="add todo...">
+        </p>
+        <p>
+            <strong><label for="stock2">股票2</label></strong>
+        </p>
+        <p>
+            <input type="text" name="stock2" placeholder="add todo...">
+        </p>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="container-chart" style="position: relative; width: 80vw; height: 40vw;">
+        <canvas id="mainChart"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            var etf1 = "{{etf1}}";
+            var etf2 = "{{etf2}}";
+
+            var etf1Price = {{ etf1_price_json | safe }};
+            var etf2Price = {{ etf2_price_json | safe }};
+
+            var ctx = document.getElementById('mainChart')
+            var etfChart = new Chart(ctx,{
+                type:'line',
+                data:{
+                    // labels:dataTime,
+                    datasets:[
+                        {
+                            label: etf1,
+                            data:etf1Price,
+                            // borderColor: 'rgba(75, 192, 192, 1)',
+                            // borderWidth: 1,
+                            // fill: false
+                        }
+                        // ,{
+                        //     label: etf2,
+                        //     data:etf2Price,
+                        // }
+                    ]
+                },
+                options:{
+                    scales:{
+                        x:{type:'time'},
+                 
+                    }
+                }
+            })
+            
+            // Function to add a new dataset to the chart
+            function addDataset(label, data) {
+                etfChart.data.datasets.push({
+                    label: label,
+                    data: data,
+                });
+                etfChart.update(); // Update the chart to reflect the changes
+            }
+
+            // Example: Adding a new dataset (etf2Price) dynamically
+            
+            addDataset(etf2, etf2Price);
+        })
+    </script>
+
+    
+</body>
+</html>
