@@ -1,5 +1,5 @@
 # ETF Comparison Web Application (eTFSELECTOR)
-
+![image](static/assets/logo/logo.png)
 
 ## Overview
 
@@ -18,5 +18,16 @@ This web application provides a user-friendly interface for comparing the long-t
 3. Interactive Comparison:<br/>
   - Users can easily navigate through the web application.
   - Clicking on images from the homepage redirects to a the other page which can easily read the difference between ETFs.
+
+## Usage
+
+1. Homepage:
+  - Navigate to the homepage to view a list of available ETFs.
+  - Click on an ETF image to access the detailed comparison page.
+2. Info Comparison Page:
+  - Explore and analyze long-term return rates with preloaded parameters.
+  - includes fee/dividends/benefit number/founding years
+3. Long-term Return Rate Chart
+  - Visualize the return from beginning that easily compare the growth between different ETFs.
 
 
