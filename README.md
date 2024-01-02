@@ -3,7 +3,9 @@
 
 ## Overview
 
-This web application provides a user-friendly interface for comparing the long-term return rates of various Exchange-Traded Funds (ETFs). Built using Flask and MongoDB, it offers a seamless experience for users to explore and analyze different ETFs effortlessly.
+This web application provides a user-friendly interface for comparing the long-term return rates of various Exchange-Traded Funds (ETFs). Built using Flask and MongoDB, it offers a seamless experience for users to explore and analyze different ETFs effortlessly. 
+![image](static/assets/index_page.png)
+
 
 ## Features
 
@@ -23,11 +25,14 @@ This web application provides a user-friendly interface for comparing the long-t
 
 1. Homepage:
   - Navigate to the homepage to view a list of available ETFs.
-  - Click on an ETF image to access the detailed comparison page.
+  - Click on an ETF image to access the detailed comparison page. <br/>
+![image](static/assets/etf_button.png)
 2. Info Comparison Page:
   - Explore and analyze long-term return rates with preloaded parameters.
-  - includes fee/dividends/benefit number/founding years
+  - includes fee/dividends/benefit number/founding years <br/>
+![image](static/assets/etf_info_table.png)
 3. Long-term Return Rate Chart
-  - Visualize the return from beginning that easily compare the growth between different ETFs.
+  - Visualize the return from beginning that easily compare the growth between different ETFs. <br/>
+![image](static/assets/etf_returns_chart.png)
 
 
