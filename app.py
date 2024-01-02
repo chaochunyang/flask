@@ -16,8 +16,8 @@ def index():
 @app.route("/etfTables", methods=['GET','POST'])
 def get_table_data():
     stock1 = request.args.get('stock1', session.get('stock1', '0050'))
-    stock2 = request.args.get('stock2', session.get('stock2', '006208'))
-    stock3 = request.args.get('stock3', session.get('stock3', '00881'))
+    stock2 = request.args.get('stock2', session.get('stock2', '0056'))
+    stock3 = request.args.get('stock3', session.get('stock3', '00713'))
     
     if request.method == 'POST':
         stock1 = request.form['stock1']
@@ -129,9 +129,9 @@ def get_chart_data():
 
         return redirect(url_for('get_chart_data'))
     
-    stock1 = session.get('stock1', default='00878')
-    stock2 = session.get('stock2', default='00919')
-    stock3 = session.get('stock3', default='00929')
+    stock1 = session.get('stock1', default='00891')
+    stock2 = session.get('stock2', default='00913')
+    stock3 = session.get('stock3', default='00927')
 
     if stock1 or stock2 or stock3:
         etf1_price = collect_price.find({'ETF_ID':stock1})

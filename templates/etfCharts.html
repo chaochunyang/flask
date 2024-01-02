@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETF 報酬率比較圖</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script> -->
-    <!-- <link rel="stylesheet" href="../static/style.css"> -->
-    <!-- <link rel="stylesheet" href="{{url_for('static',filename='./css/styles.css')}}"> -->
+    <title>eTFSELECTOR</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/assets/logo/favicon.png">
+
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <script src="../static/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="../static/js/chartjs/dist/chart.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
 </head>
 <body>
     <nav class="navbar p-4 navbar-expand-md navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container" id="pageTop">
             <a class="navbar-brand" href="{{url_for('index')}}">
                 <img src="../static/assets/logo/favicon.png" class="mb-2" width="30" height="30" alt="...">
-                eTFSELECTOR
+                <b>eTFSELECTOR</b>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" id="hamburger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 text-white">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url_for('get_table_data')}}">ETF成分股比較</a>
+            <div class="collapse navbar-collapse border-start border-white border-2 ps-2" id="navbarSupportedContent">
+                <ul class="navbar-nav text-white">
+                  <li class="nav-item" id="nav-link1">
+                    <a class="nav-link" aria-current="page" href="{{url_for('get_table_data')}}">ETF 成分股比較</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('get_chart_data')}}">ETF績效圖</a>
+                  <li class="nav-item" id="nav-link2">
+                    <a class="nav-link" href="{{url_for('get_chart_data')}}">ETF 報酬績效圖</a>
                   </li>
                   <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,10 +43,10 @@
                     </ul>
                   </li> -->
                 </ul>
-                <form class="d-flex">
+                <!-- <form class="d-flex">
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                   <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </nav>
@@ -55,9 +54,13 @@
         <div class="container mt-4">
             <div class="container" style="background-color: whitesmoke;">
                 <div class="container p-4">
-                    <h1 class="dispaly-5">ETF 主題一把抓</h1>
+                    <h1 class="dispaly-5">ETF 主題熱搜</h1>
+                    <hr/>
+                    <h5 class="text-danger">點擊主題後下方送出看報酬率!</h5>
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" 
+                        onclick="check(this.value)" value='{"stock1":"00891","stock2":"00913","stock3":"00927"}'
+                        checked>
                         <label class="btn btn-outline-primary p-3" for="btnradio1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">
                                 <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
@@ -65,7 +68,9 @@
                             <br/>最夯半導體
                         </label>
                         
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                        onclick="check(this.value)" value='{"stock1":"00876","stock2":"00881","stock3":"00910"}'
+                        >
                         <label class="btn btn-outline-primary p-3" for="btnradio2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-router" viewBox="0 0 16 16">
                                 <path d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707Z"/>
@@ -76,7 +81,9 @@
                             <br/>5G通訊衛星
                         </label>
                         
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                        onclick="check(this.value)" value='{"stock1":"00895","stock2":"00896","stock3":"00925"}' 
+                        >
                         <label class="btn btn-outline-primary p-3" for="btnradio3">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-ev-front" viewBox="0 0 16 16">
                                 <path d="M9.354 4.243a.188.188 0 0 0-.085-.218.186.186 0 0 0-.23.034L6.051 7.246a.188.188 0 0 0 .136.316h1.241l-.673 2.195a.188.188 0 0 0 .085.218c.075.043.17.03.23-.034l2.88-3.187a.188.188 0 0 0-.137-.316H8.572z"/>
@@ -85,7 +92,9 @@
                             <br/>電動車時代
                         </label>
     
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"
+                        onclick="check(this.value)" value='{"stock1":"00850","stock2":"00888","stock3":"00920"}'
+                        >
                         <label class="btn btn-outline-primary p-3" for="btnradio4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-droplet" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M7.21.8C7.69.295 8 0 8 0c.109.363.234.708.371 1.038.812 1.946 2.073 3.35 3.197 4.6C12.878 7.096 14 8.345 14 10a6 6 0 0 1-12 0C2 6.668 5.58 2.517 7.21.8zm.413 1.021A31.25 31.25 0 0 0 5.794 3.99c-.726.95-1.436 2.008-1.96 3.07C3.304 8.133 3 9.138 3 10a5 5 0 0 0 10 0c0-1.201-.796-2.157-2.181-3.7l-.03-.032C9.75 5.11 8.5 3.72 7.623 1.82z"/>
@@ -94,7 +103,9 @@
                             <br/>永續ESG
                         </label>
     
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off"
+                        onclick="check(this.value)" value='{"stock1":"00646","stock2":"00757","stock3":"00830"}'
+                        >
                         <label class="btn btn-outline-primary p-3" for="btnradio5">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trophy" viewBox="0 0 16 16">
                                 <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5m.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935M3.504 1c.007.517.026 1.006.056 1.469.13 2.028.457 3.546.87 4.667C5.294 9.48 6.484 10 7 10a.5.5 0 0 1 .5.5v2.61a1 1 0 0 1-.757.97l-1.426.356a.5.5 0 0 0-.179.085L4.5 15h7l-.638-.479a.501.501 0 0 0-.18-.085l-1.425-.356a1 1 0 0 1-.757-.97V10.5A.5.5 0 0 1 9 10c.516 0 1.706-.52 2.57-2.864.413-1.12.74-2.64.87-4.667.03-.463.049-.952.056-1.469H3.504z"/>
@@ -102,7 +113,9 @@
                             <br/>得獎ETF
                         </label>
     
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off"
+                        onclick="check(this.value)" value='{"stock1":"00679B","stock2":"00696B","stock3":"00761B"}'
+                        >
                         <label class="btn btn-outline-primary p-3" for="btnradio6">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
                                 <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
@@ -113,50 +126,111 @@
                         </label>
                     </div>
                 </div>
-    
                 <div class="container p-4">
-                    <h1 class="dispaly-5">ETF 個別篩選</h1>
-                    <div class="container">
+                    <h1 class="dispaly-5">ETF 篩選面板 </h1>
+                    <hr/>
+                        <h5 class="text-danger">挑選完3組ETF後點選送出即可得到基本資訊比較！</h5>
                         <form method="post">
-                            <label for="stock1">Select Stock 1:</label>
-                            <select id="stock1" name="stock1">
-                                {% for option in options %}
-                                    <option value="{{ option }}" {% if option == stock1 %}selected{% endif %}>{{ option }}</option>
-                                {% endfor %}
-                            </select>
-                        
-                            <label for="stock2">Select Stock 2:</label>
-                            <select id="stock2" name="stock2">
-                                {% for option in options %}
-                                    <option value="{{ option }}" {% if option == stock2 %}selected{% endif %}>{{ option }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="container p-0 mb-4">
+                                <label for="stock1" class="form-label fs-4">ETF 候選1號:</label>
+                                <input class="form-control" list="options" id="stock1" name="stock1">
+                                    <datalist id="options">
+                                        {% for option in options %}
+                                            <option value="{{ option }}" {% if option == stock1 %}selected{% endif %}>{{ option }}</option>
+                                        {% endfor %}
+                                    </datalist>
+                                </input>
+                            </div>
+                            <div class="container p-0 mb-4">
+                                <label for="stock2" class="form-label fs-4">ETF 候選2號:</label>
+                                <input class="form-control" list="options" id="stock2" name="stock2">
+                                    <datalist id="options">
+                                        {% for option in options %}
+                                            <option value="{{ option }}" {% if option == stock2 %}selected{% endif %}>{{ option }}</option>
+                                        {% endfor %}
+                                    </datalist>
+                                </input>
+                            </div>
                             
-                            <label for="stock3">Select Stock 3:</label>
-                            <select id="stock3" name="stock3">
-                                {% for option in options %}
-                                    <option value="{{ option }}" {% if option == stock3 %}selected{% endif %}>{{ option }}</option>
-                                {% endfor %}
-                            </select>
-
-                            <button type="submit">Submit</button>
+                            <div class="container p-0 mb-4">
+                                <label for="stock3" class="form-label fs-4">ETF 候選3號:</label>
+                                <input class="form-control" list="options" id="stock3" name="stock3">
+                                    <datalist id="options">
+                                        {% for option in options %}
+                                            <option value="{{ option }}" {% if option == stock3 %}selected{% endif %}>{{ option }}</option>
+                                        {% endfor %}
+                                    </datalist>
+                                </input>
+                            </div>
+                        
+                            <button type="submit" class="btn btn-primary mb-4">送出</button>
                         </form>
-                    </div>
                 </div>
             </div>
             <hr/>
-            <h1 class="dispaly-5">績效圖</h1>
-            <div class="chart-container" style="position: relative; margin: auto; height: 100vh;">
-                <canvas id="mainChart"></canvas>
+            <div class="container mt-5 mb-5 shadow">
+                <h1 class="dispaly-5 mb-3 text-center">ETF 長期績效圖表</h1>
+                <div class="chart-container mt-2" id="chartContainer" style="position: relative;">
+                    <canvas id="mainChart"></canvas>
+                </div>
+
             </div>
         </div>
 
         
     </main>
 
-
-
+    <!-- footer -->
+    <footer class="footer p-0 bg-dark text-bg-dark mt-5" style="height: 250px;">
+        <div class="container text-light fw-light text-center pt-2" style="height: 250px;">
+          <span class="align-middle">
+            資料來源参考：玩股網、公開資訊觀測站、台灣證券交易所、Yahoo Finance、Finmind API。
+            本站提供之分析資料、選ETF工具僅供參考，不暗示買賣建議，
+            本站對資訊正確、更新延誤或傳輸中斷不負任何責任，
+            依本站資訊交易發生損失需自行負責，請謹慎評估風險。(eTFSELECTOR免責聲明)
+          </span>
+          <br/>
+          <hr/>
+          <div class="align-bottom mt-4 p-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+            <a class="p-5 rounded link-light" href="#pageTop" id="goTopText">回頂部</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+            </svg>
+          </div>
+          
+        </div>  
+      </footer>
+    
+      
     <script>
+        // 計算報酬率的函數
+        function calculateReturns(data) {
+            const returns = [{x:data[0].x,y:0}]; // 第一天報酬率為 0
+            const baseValue = data[0].y; // 第一天的資料作為基準點
+            
+            for (let i = 1; i < data.length; i++) {
+                const dailyReturn = (((data[i].y - baseValue) / baseValue) * 100).toFixed(1); // 計算報酬率，並取小數點一位
+                returns.push({ x: data[i].x, y: parseFloat(dailyReturn) });
+            }
+            // console.log(returns)
+            return returns;
+        }
+
         $(document).ready(function(){
             var etf1 = "{{etf1}}";
             var etf2 = "{{etf2}}";
@@ -166,9 +240,26 @@
             var etf2Price = {{ etf2_price_json | safe }};
             var etf3Price = {{ etf3_price_json | safe }};
 
-            // var etf1 = '0050'
-            // var etf1Price = [{x:'2021',y:1},{x:'2022',y:2},{x:'2023',y:3},{x:'2024',y:4},{x:'2025',y:5}]
+            // 過濾 etf1Price 中的 0 值
+            var filteredEtf1Price = etf1Price.filter(function(dataPoint) {
+                return dataPoint.y !== 0;
+            });
 
+            // 過濾 etf2Price 中的 0 值
+            var filteredEtf2Price = etf2Price.filter(function(dataPoint) {
+                return dataPoint.y !== 0;
+            });
+
+            // 過濾 etf3Price 中的 0 值
+            var filteredEtf3Price = etf3Price.filter(function(dataPoint) {
+                return dataPoint.y !== 0;
+            });
+
+            // 計算報酬率
+            var etf1Returns = calculateReturns(filteredEtf1Price);
+            var etf2Returns = calculateReturns(filteredEtf2Price);
+            var etf3Returns = calculateReturns(filteredEtf3Price);
+            
             var ctx = document.getElementById('mainChart')
             var etfChart = new Chart(ctx,{
                 type:'line',
@@ -177,42 +268,66 @@
                     datasets:[
                         {
                             label: etf1,
-                            data:etf1Price,
-                            // borderColor: 'rgba(75, 192, 192, 1)',
-                            // borderWidth: 1,
-                            // fill: false
+                            data:etf1Returns,
                         }
                         ,{
                             label: etf2,
-                            data:etf2Price,
+                            data:etf2Returns,
                         }
                         ,{
                             label: etf3,
-                            data:etf3Price,
+                            data:etf3Returns,
                         }
                     ]
                 },
                 options:{
                     scales:{
-                        x:{type:'time'},
+                        x:{
+                            type:'time',
+                            grid: {
+                                display: false, // 移除 X 軸的格線
+                            },
+                    
+                        },
+                        y:{
+                            title:{
+                                text:'報酬率(%)',
+                                display:true,
+                                font: {
+                                    // family: 'Times',
+                                    size: 18,
+                                    // style: 'normal',
+                                    lineHeight: 1.2
+                                },
+                            },
+
+                        }
                  
+                    },
+                    plugins:{
+                        title: {
+                        display: true,
+                        text: '截止時間: 2023.12.18',
+                        position:'bottom',
+                        align:'end',
+                        font:{size:10}
+                        }
                     }
+                    
                 }
+                
             })
             
-            // // Function to add a new dataset to the chart
-            // function addDataset(label, data) {
-            //     etfChart.data.datasets.push({
-            //         label: label,
-            //         data: data,
-            //     });
-            //     etfChart.update(); // Update the chart to reflect the changes
-            // }
-
-            // // Example: Adding a new dataset (etf2Price) dynamically
-            
-            // addDataset(etf2, etf2Price);
         })
+    </script>
+    <script>
+        function check(option) {
+          var optionJson = JSON.parse(option)
+          console.log(optionJson)
+          document.getElementById("stock1").value=optionJson.stock1;
+          document.getElementById("stock2").value=optionJson.stock2;
+          document.getElementById("stock3").value=optionJson.stock3;
+        }
     </script>
 
     
